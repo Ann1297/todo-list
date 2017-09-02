@@ -1,0 +1,7 @@
+<h1>To Do List</h1>
+
+<ul class="list">
+    <li *ngFor="let item of toDoList">
+    <input type="checkbox" name="todolist" [value]="['item.id']">{{item.task}}<br>       
+    </li>
+</ul>
