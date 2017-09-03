@@ -16,10 +16,25 @@ export class AppComponent {
   constructor(private toDoListService: ToDoListService) { }
 
   ngOnInit() {
-    this.toDoListService.getList().then(list => this.toDoList = list);    
+    this.getFullList();
   }
 
-    onSelected(item: ToDoItem) {
+  onSelected(item: ToDoItem) {
     this.selectedItem = item;
+  }
+
+  getFullList() {
+    this.toDoListService.getList().then(list => this.toDoList = list);  
+  }
+
+  addTask() {
+    let input = document.getElementsByTagName('input')[0];
+    if (input.validity.valid) {
+        this.toDoListService.addTask(input.value);
+        input.value = "";
+
+        //can i uodate the list dynamicly
+        this.getFullList();
+    }   
   }
 }

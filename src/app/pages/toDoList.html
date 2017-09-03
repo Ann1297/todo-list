@@ -1,5 +1,8 @@
 <h1>To Do List</h1>
 
+<input id="newTask" type="text" placeholder="Enter a new task" maxlength="50" required>
+<button (click)="addTask()">Add task</button>
+
 <ul class="list">
     <li *ngFor="let item of toDoList">
     <input type="checkbox" name="todolist" [value]="['item.id']">{{item.task}}<br>       

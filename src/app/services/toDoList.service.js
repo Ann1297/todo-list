@@ -6,6 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require("@angular/core");
+var toDoItem_1 = require("../model/toDoItem");
 //temp hardcoded const array
 var nextId = 1;
 exports.ToDoList = [
@@ -19,6 +20,26 @@ var ToDoListService = (function () {
         return new Promise(function (resolve) {
             setTimeout(function () {
                 resolve(exports.ToDoList.filter(function (i) { return !i.isDeleted; }));
+            }, 50);
+        });
+    };
+    ToDoListService.prototype.getTask = function (id) {
+        return new Promise(function (resolve) {
+            setTimeout(function () {
+                var hero = exports.ToDoList.find(function (i) { return i.id === id; });
+                resolve(hero);
+            }, 500);
+        });
+    };
+    ToDoListService.prototype.addTask = function (task) {
+        return new Promise(function (resolve) {
+            setTimeout(function () {
+                var item = new toDoItem_1.ToDoItem();
+                item.id = nextId++;
+                item.isDeleted = false;
+                item.task = task;
+                exports.ToDoList.push(item);
+                resolve(item);
             }, 50);
         });
     };

@@ -15,11 +15,23 @@ var AppComponent = (function () {
         this.toDoListService = toDoListService;
     }
     AppComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.toDoListService.getList().then(function (list) { return _this.toDoList = list; });
+        this.getFullList();
     };
     AppComponent.prototype.onSelected = function (item) {
         this.selectedItem = item;
+    };
+    AppComponent.prototype.getFullList = function () {
+        var _this = this;
+        this.toDoListService.getList().then(function (list) { return _this.toDoList = list; });
+    };
+    AppComponent.prototype.addTask = function () {
+        var input = document.getElementsByTagName('input')[0];
+        if (input.validity.valid) {
+            this.toDoListService.addTask(input.value);
+            input.value = "";
+            //can i uodate the list dynamicly
+            this.getFullList();
+        }
     };
     return AppComponent;
 }());
