@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit} from '@angular/core';
 
 import { ToDoItem } from './model/toDoItem'
 import { ToDoListService } from './services/toDoList.service';
@@ -8,10 +8,9 @@ import { ToDoListService } from './services/toDoList.service';
   templateUrl: './pages/toDoList.html',
 })
 
-export class AppComponent { 
-
+export class AppComponent implements OnInit { 
+  @Input()
   toDoList: ToDoItem[];
-  selectedItem: ToDoItem;
 
   constructor(private toDoListService: ToDoListService) { }
 
@@ -19,22 +18,26 @@ export class AppComponent {
     this.getFullList();
   }
 
-  onSelected(item: ToDoItem) {
-    this.selectedItem = item;
-  }
-
   getFullList() {
-    this.toDoListService.getList().then(list => this.toDoList = list);  
+    this.toDoListService.getList().then(list => {this.toDoList = list; console.log(this.toDoList);} );      
   }
 
   addTask() {
-    let input = document.getElementsByTagName('input')[0];
+    let input = document.getElementsByTagName("input")[0];
     if (input.validity.valid) {
-        this.toDoListService.addTask(input.value);
+        this.toDoListService.addTask(input.value).then(() => this.getFullList());
         input.value = "";
-
-        //can i uodate the list dynamicly
-        this.getFullList();
     }   
+  }
+
+  deleteTask(id: number) {
+    this.toDoListService.deleteTask(id);
+    this.getFullList();
+  }
+
+  checkedChange(id: number) {
+    this.toDoListService.changeCheckedState(id, !this.toDoList.find(i => i.id == id).isDone);
+    console.log("change event");
+    this.getFullList();
   }
 }

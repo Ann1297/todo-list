@@ -17,24 +17,33 @@ var AppComponent = (function () {
     AppComponent.prototype.ngOnInit = function () {
         this.getFullList();
     };
-    AppComponent.prototype.onSelected = function (item) {
-        this.selectedItem = item;
-    };
     AppComponent.prototype.getFullList = function () {
         var _this = this;
-        this.toDoListService.getList().then(function (list) { return _this.toDoList = list; });
+        this.toDoListService.getList().then(function (list) { _this.toDoList = list; console.log(_this.toDoList); });
     };
     AppComponent.prototype.addTask = function () {
-        var input = document.getElementsByTagName('input')[0];
+        var _this = this;
+        var input = document.getElementsByTagName("input")[0];
         if (input.validity.valid) {
-            this.toDoListService.addTask(input.value);
+            this.toDoListService.addTask(input.value).then(function () { return _this.getFullList(); });
             input.value = "";
-            //can i uodate the list dynamicly
-            this.getFullList();
         }
+    };
+    AppComponent.prototype.deleteTask = function (id) {
+        this.toDoListService.deleteTask(id);
+        this.getFullList();
+    };
+    AppComponent.prototype.checkedChange = function (id) {
+        this.toDoListService.changeCheckedState(id, !this.toDoList.find(function (i) { return i.id == id; }).isDone);
+        console.log("change event");
+        this.getFullList();
     };
     return AppComponent;
 }());
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Array)
+], AppComponent.prototype, "toDoList", void 0);
 AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',

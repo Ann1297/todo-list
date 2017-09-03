@@ -5,6 +5,7 @@
 
 <ul class="list">
     <li *ngFor="let item of toDoList">
-    <input type="checkbox" name="todolist" [value]="['item.id']">{{item.task}}<br>       
+            <input type="checkbox" name="todolist" [value]="['item.id']" [ngModel]="item.isDone"  (change)="checkedChange(item.id)">{{item.task}}
+            <button (click)="deleteTask(item.id)">delete</button><br>
     </li>
 </ul>
