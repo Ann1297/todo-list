@@ -1,43 +1,12 @@
-import { Component, Input, OnInit} from '@angular/core';
-
-import { ToDoItem } from './model/toDoItem'
-import { ToDoListService } from './services/toDoList.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'my-app',
-  templateUrl: './pages/toDoList.html',
+  templateUrl: './components/pages/app.component.html',
+  styleUrls: ['./components/pages/app.component.css']
 })
 
-export class AppComponent implements OnInit { 
-  @Input()
-  toDoList: ToDoItem[];
-
-  constructor(private toDoListService: ToDoListService) { }
-
-  ngOnInit() {
-    this.getFullList();
-  }
-
-  getFullList() {
-    this.toDoListService.getList().then(list => {this.toDoList = list; console.log(this.toDoList);} );      
-  }
-
-  addTask() {
-    let input = document.getElementsByTagName("input")[0];
-    if (input.validity.valid) {
-        this.toDoListService.addTask(input.value).then(() => this.getFullList());
-        input.value = "";
-    }   
-  }
-
-  deleteTask(id: number) {
-    this.toDoListService.deleteTask(id);
-    this.getFullList();
-  }
-
-  checkedChange(id: number) {
-    this.toDoListService.changeCheckedState(id, !this.toDoList.find(i => i.id == id).isDone);
-    console.log("change event");
-    this.getFullList();
-  }
+export class AppComponent {
+  title = 'Awesome To Do List';
+  description = 'Plan what you want with Awesome To Do List!';
 }
