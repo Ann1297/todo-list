@@ -24,6 +24,10 @@ button:hover {
   
 }
 
+ul {
+  list-style-type: none; 
+}
+
 #newTask {
   width: 30%;
   margin-left: 30%;
@@ -32,4 +36,9 @@ button:hover {
   font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   color: black;
  font-size: 1rem;
+}
+
+.delete {
+  position: relative;
+  float: right;
 }
