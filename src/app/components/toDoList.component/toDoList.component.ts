@@ -1,16 +1,15 @@
 import { Component, Input, OnInit} from '@angular/core';
 
-import { ToDoItem } from '../model/toDoItem'
-import { ToDoListService } from '../services/toDoList.service';
+import { ToDoItem } from '../../model/toDoItem'
+import { ToDoListService } from '../../services/toDoList.service';
 
 @Component({
   selector: 'todo-list',
-  templateUrl: './pages/toDoList.component.html',
-  styleUrls: ['./pages/toDoList.component.css']
+  templateUrl: './toDoList.component.html',
+  styleUrls: ['./toDoList.component.css']
 })
 
 export class ToDoListComponent implements OnInit { 
-  @Input()
   toDoList: ToDoItem[];
 
   constructor(private toDoListService: ToDoListService) { }

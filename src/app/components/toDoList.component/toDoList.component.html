@@ -1,0 +1,14 @@
+<h1>To Do List</h1>
+<div class="list">
+    <form>
+            <input id="newTask" type="text" placeholder="Enter a new task" maxlength="50" required>
+            <button (click)="addTask()">Add task</button>
+    </form>
+    <ul class="list">
+        <li *ngFor="let item of toDoList">
+            <input type="checkbox" name="todolist" [value]="item.id" [ngModel]="item.isDone" id="item.id"
+            (change)="checkedChange(item.id)"> <label for="item.id">{{item.task}}</label>
+            <button class="delete" (click)="deleteTask(item.id)">delete</button><br>
+        </li>
+    </ul>
+</div>

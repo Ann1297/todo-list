@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var toDoList_service_1 = require("../services/toDoList.service");
+var toDoList_service_1 = require("../../services/toDoList.service");
 var ToDoListComponent = (function () {
     function ToDoListComponent(toDoListService) {
         this.toDoListService = toDoListService;
@@ -40,15 +40,11 @@ var ToDoListComponent = (function () {
     };
     return ToDoListComponent;
 }());
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Array)
-], ToDoListComponent.prototype, "toDoList", void 0);
 ToDoListComponent = __decorate([
     core_1.Component({
         selector: 'todo-list',
-        templateUrl: './pages/toDoList.component.html',
-        styleUrls: ['./pages/toDoList.component.css']
+        templateUrl: './toDoList.component.html',
+        styleUrls: ['./toDoList.component.css']
     }),
     __metadata("design:paramtypes", [toDoList_service_1.ToDoListService])
 ], ToDoListComponent);

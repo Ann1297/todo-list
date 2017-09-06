@@ -7,31 +7,38 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require("@angular/core");
 var toDoItem_1 = require("../model/toDoItem");
-//temp hardcoded const array
+//temp hardcoded array
 var nextId = 1;
-exports.ToDoList = [
-    { id: nextId++, task: 'Take part in hackathon', isDone: true, isDeleted: false },
-    { id: nextId++, task: 'Learn JS more', isDone: false, isDeleted: false }
-];
+// export  ToDoList: ToDoItem[] = [
+//     { id: nextId++, task: 'Take part in hackathon', isDone: true, isDeleted: false },
+//     { id: nextId++, task: 'Learn JS more', isDone: false, isDeleted: false }
+//   ];
 var ToDoListService = (function () {
     function ToDoListService() {
+        this.ToDoList = [
+            { id: nextId++, task: 'Take part in hackathon', isDone: true, isDeleted: false },
+            { id: nextId++, task: 'Learn JS more', isDone: false, isDeleted: false }
+        ];
     }
     ToDoListService.prototype.getList = function () {
+        var _this = this;
         return new Promise(function (resolve) {
             setTimeout(function () {
-                resolve(exports.ToDoList.filter(function (i) { return !i.isDeleted; }));
+                resolve(_this.ToDoList.filter(function (i) { return !i.isDeleted; }));
             }, 50);
         });
     };
     ToDoListService.prototype.getTask = function (id) {
+        var _this = this;
         return new Promise(function (resolve) {
             setTimeout(function () {
-                var item = exports.ToDoList.find(function (i) { return i.id === id; });
+                var item = _this.ToDoList.find(function (i) { return i.id === id; });
                 resolve(item);
             }, 500);
         });
     };
     ToDoListService.prototype.addTask = function (task) {
+        var _this = this;
         return new Promise(function (resolve) {
             setTimeout(function () {
                 var item = new toDoItem_1.ToDoItem();
@@ -39,24 +46,26 @@ var ToDoListService = (function () {
                 item.isDeleted = false;
                 item.isDone = false;
                 item.task = task;
-                exports.ToDoList.push(item);
+                _this.ToDoList.push(item);
                 resolve(item);
             }, 50);
         });
     };
     ToDoListService.prototype.deleteTask = function (id) {
+        var _this = this;
         new Promise(function (resolve) {
             setTimeout(function () {
-                var index = exports.ToDoList.findIndex(function (i) { return i.id === id; });
-                exports.ToDoList[index].isDeleted = true;
+                var index = _this.ToDoList.findIndex(function (i) { return i.id === id; });
+                _this.ToDoList[index].isDeleted = true;
             }, 50);
         });
     };
     ToDoListService.prototype.changeCheckedState = function (id, state) {
+        var _this = this;
         new Promise(function (resolve) {
             setTimeout(function () {
-                var index = exports.ToDoList.findIndex(function (i) { return i.id === id; });
-                exports.ToDoList[index].isDone = state;
+                var index = _this.ToDoList.findIndex(function (i) { return i.id === id; });
+                _this.ToDoList[index].isDone = state;
             }, 50);
         });
     };

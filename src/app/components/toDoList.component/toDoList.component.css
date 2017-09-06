@@ -1,3 +1,8 @@
+ul {
+  list-style-type: none; 
+}
+
+
 li {
   padding: 5px 10px;
   text-decoration: none;
@@ -18,14 +23,18 @@ button:hover {
   background-color: #5C62AE;
 }
 
-.list {
-  padding: 5px 10px;
-  margin: 10px 20% 5px 20%;
-  
+input:checked+label{
+  text-decoration: line-through;
 }
 
-ul {
-  list-style-type: none; 
+.delete {
+  position: relative;
+  float: right;
+}
+
+.list {
+  padding: 5px 10px;
+  margin: 10px 20% 5px 20%;  
 }
 
 #newTask {
@@ -36,9 +45,4 @@ ul {
   font-family: 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   color: black;
  font-size: 1rem;
-}
-
-.delete {
-  position: relative;
-  float: right;
 }
