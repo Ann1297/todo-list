@@ -19,24 +19,36 @@ var ToDoListComponent = (function () {
     };
     ToDoListComponent.prototype.getFullList = function () {
         var _this = this;
-        this.toDoListService.getList().then(function (list) { _this.toDoList = list; console.log(_this.toDoList); });
+        this.toDoListService.getList()
+            .then(function (list) { return _this.toDoList = list; });
     };
     ToDoListComponent.prototype.addTask = function () {
         var _this = this;
         var input = document.getElementsByTagName("input")[0];
         if (input.validity.valid) {
-            this.toDoListService.addTask(input.value).then(function () { return _this.getFullList(); });
-            input.value = "";
+            this.toDoListService.addTask(input.value)
+                .then(function (item) { return _this.toDoList.push(item); });
         }
+        input.value = "";
     };
     ToDoListComponent.prototype.deleteTask = function (id) {
-        this.toDoListService.deleteTask(id);
-        this.getFullList();
+        var _this = this;
+        this.toDoListService.deleteTask(id)
+            .then(function (result) {
+            if (result) {
+                _this.toDoList = _this.toDoList.filter(function (value) { return value.id !== id; });
+            }
+        });
     };
     ToDoListComponent.prototype.checkedChange = function (id) {
-        this.toDoListService.changeCheckedState(id, !this.toDoList.find(function (i) { return i.id == id; }).isDone);
-        console.log("change event");
-        this.getFullList();
+        var _this = this;
+        var newState = !this.toDoList.find(function (i) { return i.id == id; }).isDone;
+        this.toDoListService.changeCheckedState(id, newState)
+            .then(function (result) {
+            if (result) {
+                _this.toDoList.find(function (i) { return i.id == id; }).isDone = newState;
+            }
+        });
     };
     return ToDoListComponent;
 }());

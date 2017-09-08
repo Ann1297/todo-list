@@ -6,8 +6,8 @@
     </form>
     <ul class="list">
         <li *ngFor="let item of toDoList">
-            <input type="checkbox" name="todolist" [value]="item.id" [ngModel]="item.isDone" id="item.id"
-            (change)="checkedChange(item.id)"> <label for="item.id">{{item.task}}</label>
+            <input type="checkbox" name="todolist" [value]="item.id" [ngModel]="item.isDone" [id]="item.id"
+            (change)="checkedChange(item.id)"> <label [for]="item.id">{{item.task}}</label>
             <button class="delete" (click)="deleteTask(item.id)">delete</button><br>
         </li>
     </ul>

@@ -1,6 +1,9 @@
 "use strict";
 var ToDoItem = (function () {
-    function ToDoItem() {
+    function ToDoItem(init) {
+        this.isDone = false;
+        this.isDeleted = false;
+        Object.assign(this, init);
     }
     return ToDoItem;
 }());

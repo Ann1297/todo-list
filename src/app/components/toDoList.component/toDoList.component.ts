@@ -1,4 +1,4 @@
-import { Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { ToDoItem } from '../../model/toDoItem'
 import { ToDoListService } from '../../services/toDoList.service';
@@ -9,7 +9,7 @@ import { ToDoListService } from '../../services/toDoList.service';
   styleUrls: ['./toDoList.component.css']
 })
 
-export class ToDoListComponent implements OnInit { 
+export class ToDoListComponent implements OnInit {
   toDoList: ToDoItem[];
 
   constructor(private toDoListService: ToDoListService) { }
@@ -19,25 +19,35 @@ export class ToDoListComponent implements OnInit {
   }
 
   getFullList() {
-    this.toDoListService.getList().then(list => {this.toDoList = list; console.log(this.toDoList);} );      
+    this.toDoListService.getList()
+      .then(list => this.toDoList = list);
   }
 
   addTask() {
     let input = document.getElementsByTagName("input")[0];
     if (input.validity.valid) {
-        this.toDoListService.addTask(input.value).then(() => this.getFullList());
-        input.value = "";
+      this.toDoListService.addTask(input.value)
+        .then(item => this.toDoList.push(item));
     }
+    input.value = "";
   }
 
   deleteTask(id: number) {
-    this.toDoListService.deleteTask(id);
-    this.getFullList();
+    this.toDoListService.deleteTask(id)
+      .then(result => {
+        if (result) {
+          this.toDoList = this.toDoList.filter(value => value.id !== id);
+        }
+      });
   }
 
   checkedChange(id: number) {
-    this.toDoListService.changeCheckedState(id, !this.toDoList.find(i => i.id == id).isDone);
-    console.log("change event");
-    this.getFullList();
+    const newState = !this.toDoList.find(i => i.id == id).isDone;
+    this.toDoListService.changeCheckedState(id, newState)
+      .then(result => {
+        if (result) {
+          this.toDoList.find(i => i.id == id).isDone = newState;
+        }
+      });
   }
 }
